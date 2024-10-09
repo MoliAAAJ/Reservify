@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, status, Query
-from app.models.assignment import Assignment, AssignmentResponse, UpdateAssignment
-from app.database import db, serialize_doc
+from models.assignment import Assignment, AssignmentResponse, UpdateAssignment
+from database import db, serialize_doc
 from bson.objectid import ObjectId
 from typing import List, Optional
 from datetime import datetime
@@ -50,6 +50,7 @@ def create_assignment(assignment: Assignment):
         raise HTTPException(status_code=400, detail="La reserva se solapa con una existente para este recurso")
     
     assignment_dict = assignment.dict()
+    assignment_dict['status'] = 'pending'
     result = collection.insert_one(assignment_dict)
     created_assignment = collection.find_one({"_id": result.inserted_id})
     return serialize_doc(created_assignment)
@@ -60,6 +61,7 @@ def get_assignments(
     limit: int = 10,
     user_id: Optional[str] = Query(None, example="60d5ec49f8d4b45f8c1e4e7a"),
     resource_id: Optional[str] = Query(None, example="60d5ec49f8d4b45f8c1e4e7b"),
+    company_id: Optional[str] = Query(None, example="60d5ec49f8d4b45f8c1e4e7b"),
     start_after: Optional[datetime] = Query(None, example="2024-05-01T00:00:00Z"),
     start_before: Optional[datetime] = Query(None, example="2024-05-31T23:59:59Z")
 ):
@@ -67,7 +69,7 @@ def get_assignments(
     if user_id:
         if not ObjectId.is_valid(user_id):
             raise HTTPException(status_code=400, detail="user_id inválido")
-        query["user_id"] = user_id
+        query["user_id"] = ObjectId(user_id)
     if resource_id:
         if not ObjectId.is_valid(resource_id):
             raise HTTPException(status_code=400, detail="resource_id inválido")

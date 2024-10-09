@@ -1,8 +1,8 @@
-from fastapi import APIRouter, HTTPException, status
-from app.models.resource import Resource, ResourceResponse, UpdateResource
-from app.database import db, serialize_doc
+from fastapi import APIRouter, HTTPException, Query, status
+from models.resource import Resource, ResourceResponse, UpdateResource
+from database import db, serialize_doc
 from bson.objectid import ObjectId
-from typing import List
+from typing import List, Optional
 
 router = APIRouter(
     prefix="/resources",
@@ -14,7 +14,7 @@ collection = db["resources"]
 @router.post("/", response_model=ResourceResponse, status_code=status.HTTP_201_CREATED)
 def create_resource(resource: Resource):
     # Verificar si el nombre del recurso ya existe
-    if collection.find_one({"nombre": resource.nombre}):
+    if collection.find_one({"nombre": resource.name}):
         raise HTTPException(status_code=400, detail="El nombre del recurso ya existe")
     
     resource_dict = resource.dict()
@@ -23,9 +23,18 @@ def create_resource(resource: Resource):
     return serialize_doc(created_resource)
 
 @router.get("/", response_model=List[ResourceResponse])
-def get_resources(skip: int = 0, limit: int = 10):
-    resources = collection.find().skip(skip).limit(limit)
-    return [serialize_doc(resource) for resource in resources]
+def get_resources(skip: int = 0, 
+                  limit: int = 10, 
+                  company_id: Optional[str] = Query(None, example="60d5ec49f8d4b45f8c1e4e7b")):
+    query = {}
+    if company_id:
+        if not ObjectId.is_valid(company_id):
+            raise HTTPException(status_code=400, detail="company_id inválido")
+        query['company_id'] = ObjectId(company_id)
+        
+    resources = collection.find(query).skip(skip).limit(limit)
+    resource_list = [serialize_doc(resource) for resource in resources]
+    return resource_list
 
 @router.get("/{resource_id}", response_model=ResourceResponse)
 def get_resource(resource_id: str):

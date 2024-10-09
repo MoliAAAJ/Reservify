@@ -1,5 +1,5 @@
+from bson import ObjectId
 from pymongo import MongoClient
-from bson.objectid import ObjectId
 import os
 from dotenv import load_dotenv
 
@@ -20,6 +20,12 @@ db = client[DATABASE_NAME]
 
 # Función para serializar documentos de MongoDB, convirtiendo ObjectId a string
 def serialize_doc(doc):
+    res = {}
     if doc:
-        doc['_id'] = str(doc['_id'])
-    return doc
+        for key, value in doc.items():
+            if key == '_id':
+                    key = 'id'
+            if isinstance(value, ObjectId):
+                value = str(value)
+            res[key] = value
+    return res

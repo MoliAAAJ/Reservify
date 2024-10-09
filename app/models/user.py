@@ -21,11 +21,12 @@ class User(BaseModel):
         json_encoders = {ObjectId: str}
 
 class UserResponse(BaseModel):
-    id: str = Field(..., alias="_id")
+    id: str = Field(..., alias="id")
     nombre: str
     email: EmailStr
     username: str
     is_active: Optional[bool] = True
+    permissions: str
 
     class Config:
         allow_population_by_field_name = True
@@ -35,7 +36,8 @@ class UserResponse(BaseModel):
                 "nombre": "Juan Pérez",
                 "email": "juan.perez@example.com",
                 "username": "juanperez",
-                "is_active": True
+                "is_active": True,
+                "permissions": "ADMIN"
             }
         }
 

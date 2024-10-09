@@ -1,6 +1,8 @@
 from fastapi import FastAPI
-from app.routes import users, resources, assignments
+from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
+from routes import assignments, resources, users, companies
+
 
 app = FastAPI(
     title="API para la aplicación Reservify",
@@ -8,10 +10,19 @@ app = FastAPI(
     version="1.0.0"
 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Permitir los orígenes definidos
+    allow_credentials=True,  # Permitir cookies y encabezados de autenticación
+    allow_methods=["*"],  # Permitir todos los métodos HTTP (GET, POST, etc.)
+    allow_headers=["*"],  # Permitir todos los encabezados
+)
+
 # Incluir las rutas de cada módulo
 app.include_router(users.router)
 app.include_router(resources.router)
 app.include_router(assignments.router)
+app.include_router(companies.router)
 
 # Ruta raíz
 @app.get("/")
