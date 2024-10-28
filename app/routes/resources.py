@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Query, status
-from models.resource import Resource, ResourceResponse, UpdateResource
-from database import db, serialize_doc
+from app.models.resource import Resource, ResourceResponse, UpdateResource
+from app.database import db, serialize_doc
 from bson.objectid import ObjectId
 from typing import List, Optional
 

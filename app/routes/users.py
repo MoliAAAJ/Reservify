@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, status, Depends
 from pydantic import BaseModel
-from models.user import User, UserResponse, UpdateUser
-from database import db, serialize_doc
+from app.models.user import User, UserResponse, UpdateUser
+from app.database import db, serialize_doc
 from bson.objectid import ObjectId
 from typing import List
 from passlib.context import CryptContext

@@ -1,7 +1,7 @@
 from bson import ObjectId
 from fastapi import APIRouter, HTTPException, status, Query
-from models.company import Company, CompanyResponse
-from database import db, serialize_doc
+from app.models.company import Company, CompanyResponse
+from app.database import db, serialize_doc
 from typing import List, Optional
 
 router = APIRouter(

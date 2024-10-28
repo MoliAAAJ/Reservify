@@ -1,8 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
-from routes import assignments, resources, users, companies
-
+from app.routes import assignments, resources, users, companies
 
 app = FastAPI(
     title="API para la aplicación Reservify",
