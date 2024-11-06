@@ -19,7 +19,7 @@ class Assignment(BaseModel):
         return v
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "user_id": "60d5ec49f8d4b45f8c1e4e7a",
                 "resource_id": "60d5ec49f8d4b45f8c1e4e7b",
@@ -42,8 +42,8 @@ class AssignmentResponse(BaseModel):
     status: Optional[str]
 
     class Config:
-        allow_population_by_field_name = True
-        schema_extra = {
+        populate_by_name = True
+        json_schema_extra = {
             "example": {
                 "id": "60d5ec49f8d4b45f8c1e4e7c",
                 "user_id": "60d5ec49f8d4b45f8c1e4e7a",
@@ -70,7 +70,7 @@ class UpdateAssignment(BaseModel):
         return v
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "user_id": "60d5ec49f8d4b45f8c1e4e7a",
                 "resource_id": "60d5ec49f8d4b45f8c1e4e7b",

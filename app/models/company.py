@@ -7,7 +7,7 @@ class Company(BaseModel):
     name: str
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "name": "LogiTech"
             }
@@ -21,10 +21,10 @@ class CompanyResponse(BaseModel):
     name: str
 
     class Config:
-        allow_population_by_field_name = True
-        schema_extra = {
+        populate_by_name = True
+        json_schema_extra = {
             "example": {
                 "id": "60d5ec49f8d4b45f8c1e4e7b",
                 "name": "LogiTech",
             }
-        }    
+        }

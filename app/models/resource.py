@@ -11,7 +11,7 @@ class Resource(BaseModel):
 
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "id": "60d5ec49f8d4b45f8c1e4e7b",
                 "name": "Aula de Reuniones",
@@ -33,8 +33,8 @@ class ResourceResponse(BaseModel):
     notes: List[str]
 
     class Config:
-        allow_population_by_field_name = True
-        schema_extra = {
+        populate_by_name = True
+        json_schema_extra = {
             "example": {
                 "id": "60d5ec49f8d4b45f8c1e4e7b",
                 "name": "Aula de Reuniones",
@@ -50,7 +50,7 @@ class UpdateResource(BaseModel):
     info: Optional[str] = Field(None, example="Aula equipada con proyector y acceso a internet.")
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "nombre": "Aula de Reuniones",
                 "info": "Aula equipada con proyector y acceso a internet."
