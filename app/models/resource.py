@@ -4,6 +4,7 @@ from bson import ObjectId
 
 class Resource(BaseModel):
     name: str = Field(..., example="Aula Magna")
+    account_type_id: str
     info: List[str]
     type: str
     company_id: str
@@ -15,6 +16,7 @@ class Resource(BaseModel):
             "example": {
                 "id": "60d5ec49f8d4b45f8c1e4e7b",
                 "name": "Aula de Reuniones",
+                "account_type_id": "60d5ec49f8d4b45f8c1e4e7b",
                 "info": ["Wifi Banda ancha", "televisión hp 45p"],
                 "companyId": "60d5ec49f8d4b45f8c1e4e7b",
                 "type": "room",
@@ -27,6 +29,7 @@ class Resource(BaseModel):
 class ResourceResponse(BaseModel):
     id: str = Field(..., alias="id")
     name: str
+    account_type_id: str = Field(..., alias="account_type_id")
     info: List[str]
     type: str
     company_id: str = Field(..., alias="company_id")
@@ -38,6 +41,7 @@ class ResourceResponse(BaseModel):
             "example": {
                 "id": "60d5ec49f8d4b45f8c1e4e7b",
                 "name": "Aula de Reuniones",
+                "account_type_id": "60d5ec49f8d4b45f8c1e4e7b",
                 "info": ["Wifi Banda ancha", "televisión hp 45p"],
                 "company_id": "60d5ec49f8d4b45f8c1e4e7b",
                 "type": "room",
