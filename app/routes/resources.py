@@ -1,9 +1,9 @@
 import json
 from fastapi import APIRouter, File, Form, HTTPException, Query, UploadFile
-from image_utils import create_thumbnail_from_upload
-from services.blob.blob_service import delete_blob_from_url, upload_image
-from models.resource import Resource, ResourceResponse, UpdateResource
-from database import db, serialize_doc
+from app.image_utils import create_thumbnail_from_upload
+from app.services.blob.blob_service import delete_blob_from_url, upload_image
+from app.models.resource import Resource, ResourceResponse, UpdateResource
+from app.database import db, serialize_doc
 from bson.objectid import ObjectId
 from typing import Any, List, Optional
 

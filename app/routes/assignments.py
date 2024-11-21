@@ -1,8 +1,8 @@
 from ast import parse
 from fastapi import APIRouter, HTTPException, status, Query
-from assignement_utils import get_overlapping_query
-from models.assignment import Assignment, AssignmentResponse, UpdateAssignment
-from database import db, serialize_doc
+from app.assignement_utils import get_overlapping_query
+from app.models.assignment import Assignment, AssignmentResponse, UpdateAssignment
+from app.database import db, serialize_doc
 from bson import ObjectId
 from bson.objectid import ObjectId
 from typing import List, Optional

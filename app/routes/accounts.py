@@ -1,10 +1,10 @@
 from fastapi import APIRouter, HTTPException, Query, status, Depends
 from pydantic import BaseModel
-from database import db, serialize_doc
+from app.database import db, serialize_doc
 from bson.objectid import ObjectId
 from typing import List, Optional
 from passlib.context import CryptContext
-from models.account import AccountResponse, ClientAccountResponse, CompanyAccountResponse, UpdateAccount, Account
+from app.models.account import AccountResponse, ClientAccountResponse, CompanyAccountResponse, UpdateAccount, Account
 
 router = APIRouter(
     prefix="/accounts",
