@@ -22,6 +22,7 @@ Crear un entorno virtual
 
 Instalar las dependencias
   pip install -r requirements.txt
+  pip install -r dev-requirements.txt
 
 Ejecutar el servidor
   uvicorn app.main:app --reload
